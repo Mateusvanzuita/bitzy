@@ -28,7 +28,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center group">
             <div className="relative w-52 h-16 group-hover:scale-105 transition-transform duration-300">
-              <Image src="https://i.imgur.com/xO4rXvh.png" alt="Bitzy Logo" fill className="object-contain object-left" />
+              <Image src="https://i.imgur.com/mMtHpH1.jpeg" alt="Bitzy Logo" fill className="object-contain object-left" />
             </div>
           </Link>
 

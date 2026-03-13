@@ -15,7 +15,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center group">
               <div className="relative w-44 h-14 group-hover:scale-105 transition-transform duration-300">
-                <Image src="https://i.imgur.com/xO4rXvh.png" alt="Bitzy Logo" fill className="object-contain object-left" />
+                <Image src="https://i.imgur.com/mMtHpH1.jpeg" alt="Bitzy Logo" fill className="object-contain object-left" />
               </div>
             </Link>
             <p className="text-muted-foreground leading-relaxed">
