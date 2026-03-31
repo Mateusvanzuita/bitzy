@@ -36,21 +36,35 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="rounded-full text-lg px-8 py-7 gap-2 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 bg-gradient-to-r from-primary to-primary/90"
+              <a
+                href="https://apps.apple.com/br/app/id6756659048"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Apple className="w-5 h-5" />
-                App Store
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full text-lg px-8 py-7 gap-2 border-2 border-foreground/20 hover:border-primary hover:text-primary hover:bg-primary/5 hover:scale-105 transition-all duration-300 shadow-md font-semibold"
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full text-lg px-8 py-7 gap-2 border-2 border-foreground/20 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300 shadow-md font-semibold min-w-[220px]"
+                >
+                  <Apple className="w-5 h-5" />
+                  App Store
+                </Button>
+              </a>
+
+              <a
+                href="https://play.google.com/store/apps/details?id=SEU.PACOTE"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Play className="w-5 h-5" />
-                Google Play
-              </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full text-lg px-8 py-7 gap-2 border-2 border-foreground/20 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300 shadow-md font-semibold min-w-[220px]"
+                >
+                  <Play className="w-5 h-5" />
+                  Google Play
+                </Button>
+              </a>
             </div>
 
             <p className="text-sm text-muted-foreground font-medium">* O Bitzy não substitui consultas veterinárias</p>
