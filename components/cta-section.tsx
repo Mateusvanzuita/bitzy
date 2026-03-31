@@ -28,30 +28,47 @@ export function CTASection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="rounded-full text-lg px-10 py-7 gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 font-semibold"
-                onMouseEnter={() => setHoveredButton("apple")}
-                onMouseLeave={() => setHoveredButton(null)}
+              <a
+                href="https://apps.apple.com/br/app/id6756659048"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Apple
-                  className={`w-6 h-6 transition-transform duration-300 ${hoveredButton === "apple" ? "scale-125" : ""}`}
-                />
-                Baixar na App Store
-              </Button>
-              <Button
-                size="lg"
-                variant="secondary"
-                className="rounded-full text-lg px-10 py-7 gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 font-semibold"
-                onMouseEnter={() => setHoveredButton("play")}
-                onMouseLeave={() => setHoveredButton(null)}
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="rounded-full text-lg px-10 py-7 gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 font-semibold"
+                  onMouseEnter={() => setHoveredButton("apple")}
+                  onMouseLeave={() => setHoveredButton(null)}
+                >
+                  <Apple
+                    className={`w-6 h-6 transition-transform duration-300 ${
+                      hoveredButton === "apple" ? "scale-125" : ""
+                    }`}
+                  />
+                  Baixar na App Store
+                </Button>
+              </a>
+
+              <a
+                href="https://play.google.com/store/apps/details?id=SEU.PACOTE"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Play
-                  className={`w-6 h-6 transition-transform duration-300 ${hoveredButton === "play" ? "scale-125" : ""}`}
-                />
-                Baixar no Google Play
-              </Button>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="rounded-full text-lg px-10 py-7 gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 font-semibold"
+                  onMouseEnter={() => setHoveredButton("play")}
+                  onMouseLeave={() => setHoveredButton(null)}
+                >
+                  <Play
+                    className={`w-6 h-6 transition-transform duration-300 ${
+                      hoveredButton === "play" ? "scale-125" : ""
+                    }`}
+                  />
+                  Baixar no Google Play
+                </Button>
+              </a>
             </div>
 
             <div className="mt-10 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/30">
