@@ -6,6 +6,7 @@ import { PartnersSection } from "@/components/partners-section"
 import { Testimonials } from "@/components/testimonials"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import { ClubeBitzy } from "@/components/clube-bitzy"
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <HowItWorks />
       <Testimonials />
       <PartnersSection />
+      <ClubeBitzy /> 
       <CTASection />
       <Footer />
     </main>

@@ -19,7 +19,6 @@ const brandBenefits = [
   { icon: Building2, text: "Presença em ações e iniciativas futuras da plataforma" },
   { icon: Mail, text: "Disparo de emails para base segmentada de tutores" },
 ]
-
 export function PartnersSection() {
   const [activeTab, setActiveTab] = useState<"creator" | "brand">("creator")
   const [hoveredBenefit, setHoveredBenefit] = useState<number | null>(null)
@@ -131,6 +130,21 @@ export function PartnersSection() {
                     <ChevronRight className="w-4 h-4" />
                   </a>
                 </Button>
+
+                {!isCreator && (
+                  <div className="mt-2 p-4 rounded-2xl border-2 border-secondary/30 bg-secondary/5">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      🏪 Tem um pet shop?{" "}
+                      <a
+                        href="#clube-bitzy"
+                        className="text-secondary font-semibold hover:underline underline-offset-4"
+                      >
+                        Conheça o Clube Bitzy →
+                      </a>
+                      {" "}a forma mais simples de fidelizar clientes por R$99/mês.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Right — benefits */}

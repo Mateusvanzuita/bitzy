@@ -54,6 +54,17 @@ export function Footer() {
                   → Depoimentos
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="#clube-bitzy"
+                  className="text-muted-foreground hover:text-secondary transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-1.5"
+                >
+                  → Clube Bitzy
+                  <span className="bg-secondary/20 text-secondary text-xs px-1.5 py-0.5 rounded-full font-bold">
+                    Novo
+                  </span>
+                </Link>
+              </li>
             </ul>
           </div>
 

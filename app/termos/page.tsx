@@ -124,7 +124,7 @@ const sections = [
     title: "Propriedade Intelectual",
     content: (
       <p className="text-muted-foreground leading-relaxed text-lg">
-        Todo o conteúdo do Bitzy — incluindo textos, logotipos, algoritmos, design, marcas e banco de dados — é de
+        Todo o conteúdo do Bitzy - incluindo textos, logotipos, algoritmos, design, marcas e banco de dados — é de
         <strong> propriedade exclusiva do Bitzy Tecnologia e Bem-Estar Pet</strong> e protegido por leis de direitos
         autorais e de propriedade industrial. É <strong>proibido copiar, distribuir, modificar ou explorar</strong> qualquer
         parte do aplicativo sem autorização prévia e por escrito.

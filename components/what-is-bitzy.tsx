@@ -1,7 +1,7 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
-import { Heart, Sparkles, Shield } from "lucide-react"
+import { Heart, Sparkles, Shield, MapPin, MessageCircle, Star } from "lucide-react"
 import { useState } from "react"
 
 export function WhatIsBitzy() {
@@ -27,6 +27,30 @@ export function WhatIsBitzy() {
       icon: Shield,
       title: "Lembretes Importantes",
       description: "Nunca mais esqueça vacinações, vermífugos e outros cuidados essenciais para seu PET.",
+      color: "accent",
+      gradient: "from-accent/10 to-accent/5",
+    },
+    {
+      icon: MapPin,
+      title: "Mapa Pet Friendly",
+      description:
+        "Encontre pet shops, clínicas veterinárias, parques, restaurantes pet friendly e muito mais perto de você tudo em um mapa interativo e atualizado.",
+      color: "primary",
+      gradient: "from-primary/10 to-primary/5",
+    },
+    {
+      icon: MessageCircle,
+      title: "Chat Bitzy",
+      description:
+        "Seu assistente de IA disponível 24h por dia. Tire dúvidas sobre saúde, comportamento, alimentação, vacinação e qualquer necessidade do seu PET com respostas precisas e personalizadas para cada animal.",
+      color: "secondary",
+      gradient: "from-secondary/10 to-secondary/5",
+    },
+    {
+      icon: Star,
+      title: "Clube Bitzy",
+      description:
+        "Seus concorrentes também querem fidelizar clientes. Entre agora para o Clube Bitzy e transforme descontos inteligentes em mais vendas para seu pet shop e de brinde, seus clientes têm acesso à melhor IA para tutores de pet do mercado.",
       color: "accent",
       gradient: "from-accent/10 to-accent/5",
     },
@@ -67,6 +91,30 @@ export function WhatIsBitzy() {
               </div>
               <h3 className="text-2xl md:text-3xl font-bold">{feature.title}</h3>
               <p className="text-muted-foreground leading-relaxed text-lg">{feature.description}</p>
+
+              {/* Badge especial para o Clube Bitzy */}
+              {feature.title === "Clube Bitzy" && (
+                <div className="inline-flex items-center gap-2 bg-accent/10 text-accent text-sm font-semibold px-4 py-2 rounded-full border border-accent/20">
+                  <span>🐾</span>
+                  <span>Somos nós, o Bitzy</span>
+                </div>
+              )}
+
+              {/* Badge para o Chat Bitzy */}
+              {feature.title === "Chat Bitzy" && (
+                <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary text-sm font-semibold px-4 py-2 rounded-full border border-secondary/20">
+                  <span>🤖</span>
+                  <span>Disponível 24h</span>
+                </div>
+              )}
+
+              {/* Badge para o Mapa */}
+              {feature.title === "Mapa Pet Friendly" && (
+                <div className="inline-flex items-center gap-2 bg-primary/10 text-primary text-sm font-semibold px-4 py-2 rounded-full border border-primary/20">
+                  <span>📍</span>
+                  <span>Perto de você</span>
+                </div>
+              )}
             </Card>
           ))}
         </div>

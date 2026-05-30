@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Poppins, Fredoka } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import { HashScroll } from "@/components/hash-scroll"
 import "./globals.css"
 
 const poppins = Poppins({
@@ -20,11 +21,11 @@ const fredoka = Fredoka({
 })
 
 export const metadata: Metadata = {
-  title: "Bitzy — A IA melhor amiga do seu PET",
+  title: "Bitzy",
   description: "Quem ama cuida nunca fez tanto sentido. Com o Bitzy seu PET terá muito mais qualidade de vida.",
   generator: "v0.app",
   openGraph: {
-    title: "Bitzy — A IA melhor amiga do seu PET",
+    title: "Bitzy",
     description: "Quem ama cuida nunca fez tanto sentido. Com o Bitzy seu PET terá muito mais qualidade de vida.",
     type: "website",
   },
@@ -38,7 +39,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`font-sans ${poppins.variable} ${fredoka.variable}`}>
-        <Suspense fallback={null}>{children}</Suspense>
+        <Suspense fallback={null}>
+          <HashScroll />
+          {children}
+        </Suspense>
         <Analytics />
       </body>
     </html>

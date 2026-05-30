@@ -57,6 +57,15 @@ export function Header() {
             >
               Contato
             </Link>
+            <Link
+              href="#clube-bitzy"
+              className="flex items-center gap-1.5 text-foreground hover:text-secondary transition-all duration-300 font-medium hover:scale-105"
+            >
+              Clube Bitzy
+              <span className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full font-bold animate-pulse-glow">
+                Novo
+              </span>
+            </Link>
           </nav>
 
           <div className="hidden md:block">
@@ -106,6 +115,16 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Contato
+            </Link>
+            <Link
+              href="#clube-bitzy"
+              className="flex items-center gap-2 text-foreground hover:text-secondary transition-colors font-medium py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Clube Bitzy
+              <span className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full font-bold">
+                Novo
+              </span>
             </Link>
             <Button size="lg" className="rounded-full w-full mt-2">
               Baixar Agora

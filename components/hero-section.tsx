@@ -28,7 +28,7 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight bg-gradient-to-br from-foreground via-foreground to-foreground/70 bg-clip-text">
-              Bitzy — a IA melhor amiga do seu PET 🐾
+              Bitzy - a IA melhor amiga do seu PET 🐾
             </h1>
 
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed text-pretty font-light">
@@ -68,6 +68,19 @@ export function HeroSection() {
             </div>
 
             <p className="text-sm text-muted-foreground font-medium">* O Bitzy não substitui consultas veterinárias</p>
+
+            <div className="flex items-center gap-2 pt-2">
+              <span className="text-2xl">🏪</span>
+              <p className="text-sm text-muted-foreground">
+                Você tem um pet shop?{" "}
+                <a
+                  href="#clube-bitzy"
+                  className="text-secondary font-semibold hover:underline underline-offset-4 transition-all duration-300"
+                >
+                  Conheça o Clube Bitzy e fidelize seus clientes →
+                </a>
+              </p>
+            </div>
           </div>
 
           <div
