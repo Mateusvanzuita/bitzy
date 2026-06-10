@@ -68,19 +68,17 @@ const ESTADOS = [
 type Etapa = "planos" | "formulario" | "sucesso"
 
 interface FormData {
-  // Básico
   nome: string
   descricao: string
   localizacao: string
   endereco: string
   cidade: string
   estado: string
-  // Contato
+  nomeResponsavel: string
   telefone: string
   whatsapp: string
   instagram: string
   website: string
-  // Configurações
   descontoFavorito: string
 }
 
@@ -91,6 +89,7 @@ const formInicial: FormData = {
   endereco: "",
   cidade: "",
   estado: "",
+  nomeResponsavel: "",
   telefone: "",
   whatsapp: "",
   instagram: "",
@@ -181,12 +180,11 @@ export default function CadastroClube() {
   }
 
   async function handleSubmit() {
-    const { nome, endereco, cidade, estado } = form
-    if (!nome || !endereco || !cidade || !estado) {
+    const { nome, nomeResponsavel, endereco, cidade, estado } = form
+    if (!nome || !nomeResponsavel || !endereco || !cidade || !estado) {
       setFormErro("Preencha todos os campos obrigatórios (marcados com *).")
       return
     }
-    
     setFormErro("")
     setEnviando(true)
     try {
@@ -218,13 +216,11 @@ export default function CadastroClube() {
     <main className="min-h-screen bg-gradient-to-b from-background via-muted/20 to-background py-16 px-4">
       <div className="container mx-auto max-w-4xl">
 
-        {/* Voltar */}
         <Link href="/#clube-bitzy" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-10 group">
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Voltar ao site
         </Link>
 
-        {/* Header */}
         <div className="text-center mb-12">
           <span className="text-5xl mb-4 inline-block">🐾</span>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
@@ -280,7 +276,6 @@ export default function CadastroClube() {
               })}
             </div>
 
-            {/* Cupom — só Fundador */}
             {planoSelecionado === "fundador" && (
               <div className="max-w-md mx-auto space-y-2">
                 <label className="text-sm font-semibold text-foreground flex items-center gap-2">
@@ -291,6 +286,7 @@ export default function CadastroClube() {
                   type="text"
                   value={cupom}
                   onChange={(e) => { setCupom(e.target.value.toUpperCase()); setCupomErro("") }}
+                  placeholder="Ex: FUNDADOR50A"
                   className={`w-full rounded-xl border-2 px-4 py-3 text-sm font-mono tracking-widest bg-background transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 ${
                     cupomErro ? "border-red-400" : "border-border/50 focus:border-primary/50"
                   }`}
@@ -316,7 +312,6 @@ export default function CadastroClube() {
         {etapa === "formulario" && (
           <div className="max-w-2xl mx-auto space-y-6">
 
-            {/* Resumo do plano */}
             <Card className="rounded-2xl p-5 border-2 border-primary/20 bg-primary/5 flex items-center gap-4">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                 {planoAtual && <planoAtual.icon className="w-5 h-5 text-primary" />}
@@ -375,6 +370,9 @@ export default function CadastroClube() {
               {/* Contato */}
               <SectionTitle>Contato</SectionTitle>
               <div className="grid sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2">
+                  <InputField label="Nome do Responsável" name="nomeResponsavel" value={form.nomeResponsavel} onChange={handleChange} placeholder="Ex: Maria Silva" required />
+                </div>
                 <div className="space-y-1.5">
                   <label className="text-sm font-semibold text-foreground">Telefone</label>
                   <input

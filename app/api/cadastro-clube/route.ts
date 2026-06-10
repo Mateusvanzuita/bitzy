@@ -22,12 +22,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const {
       nome, descricao, localizacao, endereco, cidade, estado,
-      telefone, whatsapp, instagram, website,
-      descontoFavorito, limiteCupons,
+      nomeResponsavel, telefone, whatsapp, instagram, website,
+      descontoFavorito,
       plano, cupom,
     } = body
 
-    if (!nome || !endereco || !cidade || !estado || !plano) {
+    if (!nome || !nomeResponsavel || !endereco || !cidade || !estado || !plano) {
       return NextResponse.json({ error: "Campos obrigatórios faltando." }, { status: 400 })
     }
 
@@ -64,12 +64,12 @@ export async function POST(req: NextRequest) {
             ${row("📍", "Localização", localizacao)}
             ${row("🏠", "Endereço", endereco)}
             ${row("🌆", "Cidade / Estado", `${cidade} — ${estado}`)}
+            ${row("👤", "Responsável", nomeResponsavel)}
             ${row("📞", "Telefone", telefone)}
             ${row("💬", "WhatsApp", whatsapp)}
             ${row("📸", "Instagram", instagram ? `@${instagram}` : undefined)}
             ${row("🌐", "Website", website)}
             ${row("🏷️", "Desconto Favorito", descontoFavorito ? `${descontoFavorito}%` : undefined)}
-            ${row("🎟️", "Limite de Cupons", limiteCupons)}
             ${row("📋", "Plano", planoLabel)}
             ${indicadoPor ? row("🎟️", "Cupom", cupomUpper) : ""}
             ${indicadoPor ? row("🤝", "Indicado por", indicadoPor) : ""}
