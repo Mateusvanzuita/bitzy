@@ -82,7 +82,6 @@ interface FormData {
   website: string
   // Configurações
   descontoFavorito: string
-  limiteCupons: string
 }
 
 const formInicial: FormData = {
@@ -97,7 +96,6 @@ const formInicial: FormData = {
   instagram: "",
   website: "",
   descontoFavorito: "",
-  limiteCupons: "",
 }
 
 function InputField({
@@ -188,11 +186,7 @@ export default function CadastroClube() {
       setFormErro("Preencha todos os campos obrigatórios (marcados com *).")
       return
     }
-    const desconto = Number(form.descontoFavorito)
-    if (form.descontoFavorito && (isNaN(desconto) || desconto < 5)) {
-      setFormErro("O desconto favorito deve ser de no mínimo 5%.")
-      return
-    }
+    
     setFormErro("")
     setEnviando(true)
     try {
@@ -425,7 +419,7 @@ export default function CadastroClube() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-sm font-semibold text-foreground">
-                    Desconto Favorito (%) <span className="text-muted-foreground font-normal">mín. 5%</span>
+                    Desconto Favorito <span className="text-muted-foreground font-normal">Ex: 0%, 3%, 5%, 10%</span>
                   </label>
                   <div className="relative">
                     <input
@@ -433,7 +427,7 @@ export default function CadastroClube() {
                       name="descontoFavorito"
                       value={form.descontoFavorito}
                       onChange={handleChange}
-                      min={5}
+                      min={0}
                       max={100}
                       placeholder="Ex: 10"
                       className="w-full rounded-xl border-2 border-border/50 px-4 py-3 pr-10 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors"
@@ -441,21 +435,13 @@ export default function CadastroClube() {
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">%</span>
                   </div>
                 </div>
-                <div className="space-y-1.5">
-                  <label className="text-sm font-semibold text-foreground">Limite de Cupons Ativos</label>
-                  <input
-                    type="number"
-                    name="limiteCupons"
-                    value={form.limiteCupons}
-                    onChange={handleChange}
-                    min={1}
-                    placeholder="Ex: 50"
-                    className="w-full rounded-xl border-2 border-border/50 px-4 py-3 text-sm bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors"
-                  />
-                </div>
               </div>
 
             </Card>
+
+            <p className="text-center text-sm text-muted-foreground leading-relaxed px-4">
+              Ao finalizar iremos entrar em contato em até <strong className="text-foreground">1 dia útil</strong> para cadastrarmos juntos os cupons.
+            </p>
 
             {formErro && <p className="text-red-500 text-sm text-center">{formErro}</p>}
 
