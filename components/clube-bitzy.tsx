@@ -2,28 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { MessageCircle, Store, Smartphone, TrendingUp, RefreshCw, CheckCircle2, Sparkles, Tag } from "lucide-react"
+import { Store, Smartphone, TrendingUp, RefreshCw, CheckCircle2, Sparkles, Tag, Crown, ArrowRight } from "lucide-react"
 import { useState } from "react"
-
-const WHATSAPP_URL = "https://wa.me/5511971750070?text=Ol%C3%A1%2C+vim+pelo+site+e+quero+saber+mais+sobre+o+Clube+Bitzy!"
+import Link from "next/link"
 
 const steps = [
-  {
-    emoji: "🐾",
-    text: "Seu pet shop cria ofertas exclusivas para clientes.",
-  },
-  {
-    emoji: "🐾",
-    text: "Os clientes acessam os cupons pelo aplicativo Bitzy.",
-  },
-  {
-    emoji: "🐾",
-    text: "Cada benefício gera novas visitas e aumenta a chance de recompra.",
-  },
-  {
-    emoji: "🐾",
-    text: "Você fortalece o relacionamento com seus clientes sem depender apenas de redes sociais.",
-  },
+  { emoji: "🐾", text: "Seu pet shop cria ofertas exclusivas para clientes." },
+  { emoji: "🐾", text: "Os clientes acessam os cupons pelo aplicativo Bitzy." },
+  { emoji: "🐾", text: "Cada benefício gera novas visitas e aumenta a chance de recompra." },
+  { emoji: "🐾", text: "Você fortalece o relacionamento com seus clientes sem depender apenas de redes sociais." },
 ]
 
 const benefits = [
@@ -41,6 +28,13 @@ const cupons = [
   "Desconto em rações selecionadas",
   "Promoções de vacinas e vermífugos",
   "Combos especiais do mês",
+]
+
+const planos = [
+  { label: "Mensal", preco: "R$99/mês", descricao: "Flexibilidade total", destaque: false, badge: null },
+  { label: "Trimestral", preco: "R$79/mês", descricao: "Fechando 3 meses", destaque: false, badge: null },
+  { label: "Semestral", preco: "R$69/mês", descricao: "Fechando 6 meses", destaque: true, badge: "Mais popular" },
+  { label: "Fundadores", preco: "R$49,99/mês", descricao: "Por 6 meses · Apenas com cupom · Limite 20/região", destaque: false, badge: "Convite exclusivo", fundador: true },
 ]
 
 export function ClubeBitzy() {
@@ -148,93 +142,58 @@ export function ClubeBitzy() {
           </Card>
         </div>
 
-        {/* Pricing card comparativo */}
+        {/* Planos — preview visual */}
         <div className="max-w-6xl mx-auto mb-8">
-          <Card className="border-2 border-border/50 shadow-2xl rounded-[2.5rem] overflow-hidden">
-            <div className="grid md:grid-cols-2">
-
-              {/* Lado esquerdo — o que o pet shop ganha */}
-              <div className="p-10 md:p-14 space-y-6 bg-gradient-to-br from-primary/5 to-background border-b-2 md:border-b-0 md:border-r-2 border-border/50">
-                <div className="space-y-2">
-                  <p className="text-xs font-bold uppercase tracking-widest text-primary">O que você recebe</p>
-                  <h3 className="text-3xl md:text-4xl font-bold leading-tight">Valor real para o seu negócio</h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    Cada cliente que volta vale muito mais do que R$99. Veja o que está incluso:
-                  </p>
-                </div>
-
-                <ul className="space-y-3">
-                  {[
-                    { emoji: "📲", label: "Perfil do seu pet shop no app Bitzy", valor: "visibilidade" },
-                    { emoji: "🎟️", label: "Cupons e promoções exclusivas para seus clientes", valor: "fidelização" },
-                    { emoji: "📣", label: "Divulgação para milhares de tutores ativos", valor: "alcance" },
-                    { emoji: "🔁", label: "Clientes que voltam mais vezes ao mês", valor: "recorrência" },
-                    { emoji: "📊", label: "Sem depender de redes sociais para converter", valor: "independência" },
-                    { emoji: "🤖", label: "Seus clientes com a melhor IA pet do mercado", valor: "diferencial" },
-                  ].map(({ emoji, label, valor }, i) => (
-                    <li key={i} className="flex items-center gap-4 p-3 rounded-2xl border border-border/30 bg-muted/20 group hover:border-primary/30 hover:bg-primary/5 transition-all duration-300">
-                      <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{emoji}</span>
-                      <span className="text-foreground flex-1 leading-snug">{label}</span>
-                      <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded-full whitespace-nowrap">{valor}</span>
-                    </li>
-                  ))}
-                </ul>
+          <Card className="border-2 border-border/50 shadow-xl rounded-[2.5rem] p-10 bg-gradient-to-br from-primary/5 to-background">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-primary" />
               </div>
-
-              {/* Lado direito — preço */}
-              <div className="relative p-10 md:p-14 flex flex-col justify-center items-center text-center space-y-8 overflow-hidden bg-gradient-to-br from-primary via-secondary to-accent">
-                <div className="absolute top-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-0 right-0 w-56 h-56 bg-white/10 rounded-full blur-3xl animate-pulse" />
-
-                <div className="relative z-10 space-y-6 w-full">
-                  <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
-                    <Sparkles className="w-4 h-4 text-primary-foreground animate-pulse" />
-                    <span className="text-primary-foreground font-bold text-sm uppercase tracking-wider">Clube Bitzy</span>
-                  </div>
-
-                  <div>
-                    <p className="text-primary-foreground/70 text-sm font-medium mb-1">por apenas</p>
-                    <div className="text-primary-foreground">
-                      <span className="text-7xl md:text-8xl font-bold leading-none">R$99</span>
-                      <span className="text-2xl font-light">/mês</span>
-                    </div>
-                    <p className="text-primary-foreground/70 text-sm mt-2">≈ R$3,30 por dia</p>
-                  </div>
-
-                  {/* Comparativo visual */}
-                  <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-5 border border-white/20 space-y-3 text-left">
-                    <p className="text-primary-foreground/80 text-xs font-bold uppercase tracking-wider text-center mb-3">Comparativo</p>
-                    {[
-                      { label: "1 impulsionamento no Instagram", valor: "R$50–300", destaque: false },
-                      { label: "1 banner em jornal local", valor: "R$200+", destaque: false },
-                      { label: "Clube Bitzy — mês inteiro", valor: "R$99", destaque: true },
-                    ].map(({ label, valor, destaque }, i) => (
-                      <div key={i} className={`flex items-center justify-between gap-3 px-3 py-2 rounded-xl transition-all ${destaque ? "bg-white/25 border border-white/40" : "opacity-70"}`}>
-                        <span className={`text-sm ${destaque ? "text-primary-foreground font-bold" : "text-primary-foreground/80"}`}>{label}</span>
-                        <span className={`text-sm font-bold whitespace-nowrap ${destaque ? "text-primary-foreground" : "text-primary-foreground/80"}`}>{valor}</span>
-                        {destaque && <span className="text-xs bg-white/30 text-primary-foreground px-2 py-0.5 rounded-full font-bold">✓ melhor</span>}
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="space-y-2">
-                    <p className="text-primary-foreground/80 text-sm">Sem taxa de adesão · Sem fidelidade</p>
-                    <p className="text-primary-foreground/80 text-sm">Cancele quando quiser</p>
-                  </div>
-
-                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button
-                      size="lg"
-                      variant="secondary"
-                      className="w-full rounded-full text-lg px-8 py-7 gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 font-semibold"
-                    >
-                      <MessageCircle className="w-5 h-5" />
-                      Começar por R$99/mês 🚀
-                    </Button>
-                  </a>
+              <h3 className="text-3xl font-bold">Planos disponíveis</h3>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              {planos.map((plano, i) => (
+                <div
+                  key={i}
+                  className={`relative rounded-2xl border-2 p-5 space-y-2 transition-all ${
+                    plano.destaque
+                      ? "border-primary/60 bg-primary/5 ring-2 ring-primary/20"
+                      : plano.fundador
+                      ? "border-amber-400/50 bg-amber-50/30 dark:bg-amber-900/10"
+                      : "border-border/40 bg-muted/20"
+                  }`}
+                >
+                  {plano.badge && (
+                    <span className={`absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap ${
+                      plano.fundador
+                        ? "bg-amber-100 text-amber-700 border border-amber-300"
+                        : "bg-primary text-primary-foreground"
+                    }`}>
+                      {plano.badge}
+                    </span>
+                  )}
+                  {plano.fundador && (
+                    <Crown className="w-5 h-5 text-amber-500 mb-1" />
+                  )}
+                  <p className="font-bold text-foreground">{plano.label}</p>
+                  <p className="text-2xl font-bold text-foreground">{plano.preco}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{plano.descricao}</p>
                 </div>
-              </div>
+              ))}
+            </div>
 
+            {/* CTA principal */}
+            <div className="text-center space-y-3">
+              <Link href="/cadastro-clube">
+                <Button
+                  size="lg"
+                  className="rounded-full text-lg px-10 py-7 gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 font-semibold"
+                >
+                  Quero cadastrar meu Pet Shop
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </Link>
+              <p className="text-sm text-muted-foreground">Sem taxa de adesão · Cancele quando quiser</p>
             </div>
           </Card>
         </div>
@@ -254,15 +213,14 @@ export function ClubeBitzy() {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               E de brinde, seus clientes têm acesso à melhor IA para tutores de pet do mercado. Que somos nós, o Bitzy 🐾
             </p>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+            <Link href="/cadastro-clube">
               <Button
                 size="lg"
                 className="rounded-full text-lg px-10 py-7 gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 font-semibold mt-2"
               >
-                <MessageCircle className="w-6 h-6" />
-                Começar por R$99/mês 🚀
+                Cadastrar meu Pet Shop agora 🚀
               </Button>
-            </a>
+            </Link>
             <p className="text-sm text-muted-foreground">Sem taxa de adesão · Cancele quando quiser</p>
           </div>
         </div>
