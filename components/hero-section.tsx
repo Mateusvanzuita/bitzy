@@ -95,7 +95,7 @@ export function HeroSection() {
               <div className="relative bg-card rounded-[3rem] p-8 shadow-2xl border-2 border-border/50 animate-float backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-[3rem]"></div>
                 <img
-                  src="/happy-dog-and-cat-with-smartphone-showing-health-a.jpg"
+                  src="/inicio.png"
                   alt="Bitzy App Preview"
                   className="relative w-full h-full object-cover rounded-2xl shadow-lg"
                 />
