@@ -286,7 +286,6 @@ export default function CadastroClube() {
                   type="text"
                   value={cupom}
                   onChange={(e) => { setCupom(e.target.value.toUpperCase()); setCupomErro("") }}
-                  placeholder="Ex: FUNDADOR50A"
                   className={`w-full rounded-xl border-2 px-4 py-3 text-sm font-mono tracking-widest bg-background transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 ${
                     cupomErro ? "border-red-400" : "border-border/50 focus:border-primary/50"
                   }`}
