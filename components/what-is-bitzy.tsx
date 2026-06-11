@@ -148,7 +148,7 @@ export function WhatIsBitzy() {
             <div className="relative aspect-video group">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
               <img
-                src="/smartphone-app-interface-showing-pet-health-dashbo.jpg"
+                src="/app.png"
                 alt="Bitzy Interface"
                 className="relative w-full h-full object-cover rounded-3xl shadow-xl group-hover:scale-105 transition-transform duration-500"
               />
