@@ -7,6 +7,7 @@ import { Testimonials } from "@/components/testimonials"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 import { ClubeBitzy } from "@/components/clube-bitzy"
+import { FAQSection } from "@/components/faq-section"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <Testimonials />
       <PartnersSection />
       <ClubeBitzy /> 
+      <FAQSection />
       <CTASection />
       <Footer />
     </main>
