@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 const PLANOS: Record<string, string> = {
   mensal: "Mensal — R$99/mês",
   trimestral: "Trimestral — R$79/mês (fechando 3 meses)",
@@ -80,6 +78,8 @@ export async function POST(req: NextRequest) {
         </p>
       </div>
     `
+
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
     await resend.emails.send({
       from: "Clube Bitzy <noreply@bitzy.pet>",
