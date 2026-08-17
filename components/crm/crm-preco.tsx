@@ -17,8 +17,17 @@ export function CrmPreco() {
   const [plano, setPlano] = useState<PlanoCRM | null>(null)
 
   useEffect(() => {
-    listarPlanosCRM().then((planos) => setPlano(planos[0] ?? null)).catch(() => setPlano(null))
+    listarPlanosCRM()
+      .then((planos) => {
+        console.log("Planos recebidos com sucesso:", planos)
+        setPlano(planos[0] ?? null)
+      })
+      .catch((erro) => {
+        console.error("Erro detalhado ao buscar planos da API:", erro)
+        setPlano(null)
+      })
   }, [])
+
 
   return (
     <section id="crm-preco" className="py-20 px-4">
