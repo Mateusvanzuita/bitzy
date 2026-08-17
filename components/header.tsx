@@ -66,6 +66,12 @@ export function Header() {
                 Novo
               </span>
             </Link>
+            <Link
+              href="/crm"
+              className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
+            >
+              CRM para Pet Shops
+            </Link>
           </nav>
 
           <div className="hidden md:block">
@@ -125,6 +131,13 @@ export function Header() {
               <span className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full font-bold">
                 Novo
               </span>
+            </Link>
+            <Link
+              href="/crm"
+              className="text-foreground hover:text-primary transition-colors font-medium py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              CRM para Pet Shops
             </Link>
             <Button size="lg" className="rounded-full w-full mt-2">
               Baixar Agora

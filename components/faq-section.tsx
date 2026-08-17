@@ -203,7 +203,7 @@ function FAQList({ items }: { items: { question: string; answer: string }[] }) {
   )
 }
 
-export function FAQSection() {
+export function FAQSection({ defaultTab = "tutores" }: { defaultTab?: "tutores" | "pet-shops" | "fornecedores" }) {
   return (
     <section id="faq" className="py-20 px-4 md:px-6">
       <div className="mx-auto max-w-3xl">
@@ -216,7 +216,7 @@ export function FAQSection() {
           </p>
         </div>
 
-        <Tabs defaultValue="tutores" className="w-full">
+        <Tabs defaultValue={defaultTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3 mb-8">
             <TabsTrigger value="tutores">Tutores</TabsTrigger>
             <TabsTrigger value="pet-shops">Pet Shops</TabsTrigger>
