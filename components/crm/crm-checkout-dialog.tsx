@@ -161,6 +161,9 @@ export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
               {enviando ? "Redirecionando…" : "Ir para pagamento"}
             </Button>
           </DialogFooter>
+          <p className="text-center text-xs text-muted-foreground">
++           Sua conta é criada automaticamente assim que o pagamento for confirmado. Você recebe o acesso por e-mail.
++         </p>
         </form>
       </DialogContent>
     </Dialog>

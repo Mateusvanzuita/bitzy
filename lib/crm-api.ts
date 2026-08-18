@@ -30,8 +30,7 @@ export interface RegistrarCheckoutInput {
 }
 
 export interface RegistrarCheckoutResponse {
-  petshopId: string
-  assinaturaId: string
+  solicitacaoId: string
   checkoutUrl: string
 }
 
