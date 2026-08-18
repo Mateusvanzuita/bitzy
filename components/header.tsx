@@ -1,22 +1,52 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 
+interface ItemNav {
+  id: string
+  label: string
+}
+
+const ITENS_NAV: ItemNav[] = [
+  { id: "inicio", label: "Início" },
+  { id: "como-funciona", label: "Como Funciona" },
+  { id: "depoimentos", label: "Depoimentos" },
+  { id: "contato", label: "Contato" },
+]
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
+  const naHome = pathname === "/"
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  /**
+   * Navegação para uma seção por id, funcionando de qualquer página:
+   * - Já na Home: rola suavemente na hora, sem reload.
+   * - Em outra página (ex: /crm): navega para a Home já com o hash; quem
+   *   garante o scroll correto depois que a página carregar é o componente
+   *   <HashScroll /> presente no layout da Home (evita o comportamento
+   *   inconsistente do Next.js ao rolar para hash após navegação).
+   */
+  function irParaSecao(e: React.MouseEvent, id: string) {
+    setMobileMenuOpen(false)
+    if (naHome) {
+      e.preventDefault()
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 
   return (
     <header
@@ -33,32 +63,19 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
+            {ITENS_NAV.map((item) => (
+              <Link
+                key={item.id}
+                href={`/#${item.id}`}
+                onClick={(e) => irParaSecao(e, item.id)}
+                className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
-              href="/#inicio"
-              className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
-            >
-              Início
-            </Link>
-            <Link
-              href="#como-funciona"
-              className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
-            >
-              Como Funciona
-            </Link>
-            <Link
-              href="#depoimentos"
-              className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
-            >
-              Depoimentos
-            </Link>
-            <Link
-              href="#contato"
-              className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
-            >
-              Contato
-            </Link>
-            <Link
-              href="#clube-bitzy"
+              href="/#clube-bitzy"
+              onClick={(e) => irParaSecao(e, "clube-bitzy")}
               className="flex items-center gap-1.5 text-foreground hover:text-secondary transition-all duration-300 font-medium hover:scale-105"
             >
               Clube Bitzy
@@ -94,38 +111,20 @@ export function Header() {
 
         {mobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
-            <Link
-              href="/#inicio"
-              className="text-foreground hover:text-primary transition-colors font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Início
-            </Link>
-            <Link
-              href="/#como-funciona"
-              className="text-foreground hover:text-primary transition-colors font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Como Funciona
-            </Link>
-            <Link
-              href="/#depoimentos"
-              className="text-foreground hover:text-primary transition-colors font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Depoimentos
-            </Link>
-            <Link
-              href="/#contato"
-              className="text-foreground hover:text-primary transition-colors font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Contato
-            </Link>
+            {ITENS_NAV.map((item) => (
+              <Link
+                key={item.id}
+                href={`/#${item.id}`}
+                onClick={(e) => irParaSecao(e, item.id)}
+                className="text-foreground hover:text-primary transition-colors font-medium py-2"
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
               href="/#clube-bitzy"
+              onClick={(e) => irParaSecao(e, "clube-bitzy")}
               className="flex items-center gap-2 text-foreground hover:text-secondary transition-colors font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
             >
               Clube Bitzy
               <span className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full font-bold">
