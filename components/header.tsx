@@ -34,7 +34,7 @@ export function Header() {
 
           <nav className="hidden md:flex items-center gap-8">
             <Link
-              href="#inicio"
+              href="/#inicio"
               className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
             >
               Início
@@ -95,35 +95,35 @@ export function Header() {
         {mobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
             <Link
-              href="#inicio"
+              href="/#inicio"
               className="text-foreground hover:text-primary transition-colors font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Início
             </Link>
             <Link
-              href="#como-funciona"
+              href="/#como-funciona"
               className="text-foreground hover:text-primary transition-colors font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Como Funciona
             </Link>
             <Link
-              href="#depoimentos"
+              href="/#depoimentos"
               className="text-foreground hover:text-primary transition-colors font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Depoimentos
             </Link>
             <Link
-              href="#contato"
+              href="/#contato"
               className="text-foreground hover:text-primary transition-colors font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               Contato
             </Link>
             <Link
-              href="#clube-bitzy"
+              href="/#clube-bitzy"
               className="flex items-center gap-2 text-foreground hover:text-secondary transition-colors font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >

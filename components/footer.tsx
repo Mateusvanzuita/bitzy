@@ -32,7 +32,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="#inicio"
+                  href="/#inicio"
                   className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block"
                 >
                   → Início
@@ -40,7 +40,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#como-funciona"
+                  href="/#como-funciona"
                   className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block"
                 >
                   → Como Funciona
@@ -48,7 +48,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#depoimentos"
+                  href="/#depoimentos"
                   className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-1 inline-block"
                 >
                   → Depoimentos
@@ -56,7 +56,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#clube-bitzy"
+                  href="/#clube-bitzy"
                   className="text-muted-foreground hover:text-secondary transition-all duration-300 hover:translate-x-1 inline-flex items-center gap-1.5"
                 >
                   → Clube Bitzy
