@@ -8,10 +8,12 @@ import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 import { ClubeBitzy } from "@/components/clube-bitzy"
 import { FAQSection } from "@/components/faq-section"
+import { HashScroll } from "@/components/hash-scroll"
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <HashScroll />
       <Header />
       <HeroSection />
       <WhatIsBitzy />

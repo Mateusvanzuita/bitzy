@@ -12,19 +12,34 @@ export function HashScroll() {
 
     const id = hash.replace("#", "")
 
-    const scroll = () => {
-      const el = document.getElementById(id)
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" })
-        return true
-      }
-      return false
+    function rolar(elemento: HTMLElement) {
+      elemento.scrollIntoView({ behavior: "smooth", block: "start" })
     }
 
-    // Tenta imediatamente; se o elemento ainda não existir, tenta após hydration
-    if (!scroll()) {
-      const timer = setTimeout(scroll, 300)
-      return () => clearTimeout(timer)
+    const existente = document.getElementById(id)
+    if (existente) {
+      rolar(existente)
+      return
+    }
+
+    // Elemento ainda não existe no DOM (streaming/hydration em andamento) —
+    // observa mudanças até ele aparecer, em vez de arriscar um timeout fixo.
+    const observer = new MutationObserver(() => {
+      const elemento = document.getElementById(id)
+      if (elemento) {
+        rolar(elemento)
+        observer.disconnect()
+      }
+    })
+
+    observer.observe(document.body, { childList: true, subtree: true })
+
+    // Failsafe: para de observar depois de um tempo, mesmo se não achar nada.
+    const timeout = setTimeout(() => observer.disconnect(), 3000)
+
+    return () => {
+      observer.disconnect()
+      clearTimeout(timeout)
     }
   }, [pathname])
 
