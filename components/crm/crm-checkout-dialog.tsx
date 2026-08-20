@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState, type ReactNode } from "react"
-import { CreditCard, QrCode } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,7 +13,7 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { listarPlanosCRM, registrarCheckoutCRM, type PlanoCRM, type MetodoPagamentoCRM } from "@/lib/crm-api"
+import { listarPlanosCRM, registrarCheckoutCRM, type PlanoCRM } from "@/lib/crm-api"
 
 interface CrmCheckoutDialogProps {
   children: ReactNode
@@ -34,7 +33,6 @@ export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
   const [cpfCnpj, setCpfCnpj] = useState("")
   const [cidade, setCidade] = useState("")
   const [estado, setEstado] = useState("")
-  const [metodoPagamento, setMetodoPagamento] = useState<MetodoPagamentoCRM>("CREDIT_CARD")
 
   useEffect(() => {
     if (aberto && !plano) {
@@ -61,7 +59,7 @@ export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
         cidade: cidade || undefined,
         estado: estado || undefined,
         planoId: plano.id,
-        metodoPagamento,
+        metodoPagamento: "CREDIT_CARD",
       })
       window.location.href = resultado.checkoutUrl
     } catch (err) {
@@ -128,32 +126,6 @@ export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <Label>Forma de pagamento</Label>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setMetodoPagamento("CREDIT_CARD")}
-                className={`flex flex-col items-center gap-1.5 rounded-xl border p-4 transition-colors ${
-                  metodoPagamento === "CREDIT_CARD" ? "border-primary bg-primary/5" : "border-border"
-                }`}
-              >
-                <CreditCard className="h-5 w-5" />
-                <span className="text-sm font-medium">Cartão de Crédito</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setMetodoPagamento("PIX")}
-                className={`flex flex-col items-center gap-1.5 rounded-xl border p-4 transition-colors ${
-                  metodoPagamento === "PIX" ? "border-primary bg-primary/5" : "border-border"
-                }`}
-              >
-                <QrCode className="h-5 w-5" />
-                <span className="text-sm font-medium">Pix</span>
-              </button>
-            </div>
-          </div>
-
           {erro && <p className="text-sm text-destructive">{erro}</p>}
 
           <DialogFooter>
@@ -162,8 +134,8 @@ export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
             </Button>
           </DialogFooter>
           <p className="text-center text-xs text-muted-foreground">
-+           Sua conta é criada automaticamente assim que o pagamento for confirmado. Você recebe o acesso por e-mail.
-+         </p>
+            Pagamento via cartão de crédito. Sua conta é criada automaticamente assim que o pagamento for confirmado — você recebe o acesso por e-mail.
+          </p>
         </form>
       </DialogContent>
     </Dialog>
