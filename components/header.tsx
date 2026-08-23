@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
@@ -23,7 +23,6 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
-  const router = useRouter()
   const naHome = pathname === "/"
 
   useEffect(() => {
@@ -32,14 +31,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  /**
-   * Navegação para uma seção por id, funcionando de qualquer página:
-   * - Já na Home: rola suavemente na hora, sem reload.
-   * - Em outra página (ex: /crm): navega para a Home já com o hash; quem
-   *   garante o scroll correto depois que a página carregar é o componente
-   *   <HashScroll /> presente no layout da Home (evita o comportamento
-   *   inconsistente do Next.js ao rolar para hash após navegação).
-   */
   function irParaSecao(e: React.MouseEvent, id: string) {
     setMobileMenuOpen(false)
     if (naHome) {
@@ -73,16 +64,6 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/#clube-bitzy"
-              onClick={(e) => irParaSecao(e, "clube-bitzy")}
-              className="flex items-center gap-1.5 text-foreground hover:text-secondary transition-all duration-300 font-medium hover:scale-105"
-            >
-              Clube Bitzy
-              <span className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full font-bold animate-pulse-glow">
-                Novo
-              </span>
-            </Link>
             <Link
               href="/crm"
               className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
@@ -121,16 +102,6 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/#clube-bitzy"
-              onClick={(e) => irParaSecao(e, "clube-bitzy")}
-              className="flex items-center gap-2 text-foreground hover:text-secondary transition-colors font-medium py-2"
-            >
-              Clube Bitzy
-              <span className="bg-secondary text-secondary-foreground text-xs px-2 py-0.5 rounded-full font-bold">
-                Novo
-              </span>
-            </Link>
             <Link
               href="/crm"
               className="text-foreground hover:text-primary transition-colors font-medium py-2"

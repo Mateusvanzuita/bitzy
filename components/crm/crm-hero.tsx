@@ -3,7 +3,11 @@ import { MessageCircle } from "lucide-react"
 import { CrmCheckoutDialog } from "./crm-checkout-dialog"
 import { linkWhatsapp } from "@/lib/whatsapp"
 
-export function CrmHero() {
+interface CrmHeroProps {
+  slug?: string
+}
+
+export function CrmHero({ slug = "bitzy" }: CrmHeroProps) {
   return (
     <section id="crm-inicio" className="pt-32 pb-20 px-4 text-center">
       <div className="container mx-auto max-w-4xl">
@@ -16,8 +20,11 @@ export function CrmHero() {
           crescer. CRM inteligente que te ajuda a não perder nenhum cliente.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <CrmCheckoutDialog>
-            <Button size="lg" className="rounded-full text-lg px-10 py-7 shadow-lg hover:scale-105 transition-transform">
+          <CrmCheckoutDialog slug={slug}>
+            <Button
+              size="lg"
+              className="rounded-full text-lg px-10 py-7 shadow-lg hover:scale-105 transition-transform bg-green-600 hover:bg-green-700 text-white"
+            >
               Assinar agora
             </Button>
           </CrmCheckoutDialog>

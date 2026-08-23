@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { FAQSection } from "@/components/faq-section"
@@ -11,20 +12,26 @@ import { CrmDiferencial } from "@/components/crm/crm-diferencial"
 import { CrmPreco } from "@/components/crm/crm-preco"
 import { CrmCtaFinal } from "@/components/crm/crm-cta-final"
 
-export default function CrmPage() {
+// Página só acessível por quem tem o link direto — não aparece em nenhum
+// menu do site e não deve ser indexada por buscadores.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
+
+export default function CrmParceirosPage() {
   return (
     <main className="min-h-screen">
       <Header />
-      <CrmHero slug="bitzy" />
+      <CrmHero slug="bitzy-parceiros" />
       <CrmVideo />
       <CrmProblema />
       <CrmSolucao />
       <CrmComoFunciona />
       <CrmAppTeaser />
       <CrmDiferencial />
-      <CrmPreco slug="bitzy" precoOriginal="59,90" publicoAlvo="novos clientes" />
+      <CrmPreco slug="bitzy-parceiros" precoOriginal="59,90" publicoAlvo="fornecedores e parceiros" />
       <FAQSection defaultTab="pet-shops" />
-      <CrmCtaFinal slug="bitzy" />
+      <CrmCtaFinal slug="bitzy-parceiros" />
       <Footer />
     </main>
   )

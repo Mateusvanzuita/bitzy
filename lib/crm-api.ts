@@ -1,5 +1,4 @@
-//const API_URL = process.env.NEXT_PUBLIC_CRM_API_URL ?? "http://localhost:3333/api/v1"
-const API_URL = process.env.NEXT_PUBLIC_CRM_API_URL || "https://railway.app"
+const API_URL = process.env.NEXT_PUBLIC_CRM_API_URL ?? "https://crm-pet-shop-backend-production.up.railway.app/api/v1"
 
 export interface PlanoCRM {
   id: string
@@ -12,6 +11,12 @@ export interface PlanoCRM {
 export async function listarPlanosCRM(): Promise<PlanoCRM[]> {
   const res = await fetch(`${API_URL}/billing/planos`, { cache: "no-store" })
   if (!res.ok) throw new Error("Não foi possível carregar os planos.")
+  return res.json()
+}
+
+export async function buscarPlanoPorSlugCRM(slug: string): Promise<PlanoCRM> {
+  const res = await fetch(`${API_URL}/billing/planos/${slug}`, { cache: "no-store" })
+  if (!res.ok) throw new Error("Não foi possível carregar o plano.")
   return res.json()
 }
 

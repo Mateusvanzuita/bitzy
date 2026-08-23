@@ -3,7 +3,11 @@ import { MessageCircle } from "lucide-react"
 import { CrmCheckoutDialog } from "./crm-checkout-dialog"
 import { linkWhatsapp } from "@/lib/whatsapp"
 
-export function CrmCtaFinal() {
+interface CrmCtaFinalProps {
+  slug?: string
+}
+
+export function CrmCtaFinal({ slug = "bitzy" }: CrmCtaFinalProps) {
   return (
     <section className="py-24 px-4">
       <div className="container mx-auto">
@@ -12,8 +16,11 @@ export function CrmCtaFinal() {
             Experimente o Bitzy e transforme a gestão do seu pet shop.
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CrmCheckoutDialog>
-              <Button size="lg" variant="secondary" className="rounded-full text-lg px-10 py-7 shadow-xl hover:scale-105 transition-transform">
+            <CrmCheckoutDialog slug={slug}>
+              <Button
+                size="lg"
+                className="rounded-full text-lg px-10 py-7 shadow-xl hover:scale-105 transition-transform bg-green-600 hover:bg-green-700 text-white"
+              >
                 Assinar agora
               </Button>
             </CrmCheckoutDialog>

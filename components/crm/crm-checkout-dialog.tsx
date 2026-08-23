@@ -13,13 +13,15 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { listarPlanosCRM, registrarCheckoutCRM, type PlanoCRM } from "@/lib/crm-api"
+import { buscarPlanoPorSlugCRM, registrarCheckoutCRM, type PlanoCRM } from "@/lib/crm-api"
 
 interface CrmCheckoutDialogProps {
   children: ReactNode
+  /** Slug do plano a assinar — precisa bater com o mesmo slug usado no card de preço da página. */
+  slug?: string
 }
 
-export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
+export function CrmCheckoutDialog({ children, slug = "bitzy" }: CrmCheckoutDialogProps) {
   const [aberto, setAberto] = useState(false)
   const [plano, setPlano] = useState<PlanoCRM | null>(null)
   const [carregandoPlano, setCarregandoPlano] = useState(false)
@@ -37,12 +39,12 @@ export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
   useEffect(() => {
     if (aberto && !plano) {
       setCarregandoPlano(true)
-      listarPlanosCRM()
-        .then((planos) => setPlano(planos[0] ?? null))
+      buscarPlanoPorSlugCRM(slug)
+        .then(setPlano)
         .catch(() => setErro("Não foi possível carregar o plano. Tente novamente em instantes."))
         .finally(() => setCarregandoPlano(false))
     }
-  }, [aberto, plano])
+  }, [aberto, plano, slug])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -129,7 +131,11 @@ export function CrmCheckoutDialog({ children }: CrmCheckoutDialogProps) {
           {erro && <p className="text-sm text-destructive">{erro}</p>}
 
           <DialogFooter>
-            <Button type="submit" className="w-full rounded-full" disabled={enviando || carregandoPlano || !plano}>
+            <Button
+              type="submit"
+              className="w-full rounded-full bg-green-600 hover:bg-green-700 text-white"
+              disabled={enviando || carregandoPlano || !plano}
+            >
               {enviando ? "Redirecionando…" : "Ir para pagamento"}
             </Button>
           </DialogFooter>

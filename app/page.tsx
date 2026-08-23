@@ -6,7 +6,6 @@ import { PartnersSection } from "@/components/partners-section"
 import { Testimonials } from "@/components/testimonials"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
-import { ClubeBitzy } from "@/components/clube-bitzy"
 import { FAQSection } from "@/components/faq-section"
 import { HashScroll } from "@/components/hash-scroll"
 
@@ -20,7 +19,6 @@ export default function Home() {
       <HowItWorks />
       <Testimonials />
       <PartnersSection />
-      <ClubeBitzy /> 
       <FAQSection />
       <CTASection />
       <Footer />
