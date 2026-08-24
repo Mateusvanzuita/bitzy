@@ -19,7 +19,7 @@ const ITENS_NAV: ItemNav[] = [
   { id: "contato", label: "Contato" },
 ]
 
-const URL_APP_CRM = "https://app.bitzy.com.br/configuracoes"
+const URL_APP_CRM = "https://app.bitzy.com.br/"
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
