@@ -19,6 +19,8 @@ const ITENS_NAV: ItemNav[] = [
   { id: "contato", label: "Contato" },
 ]
 
+const URL_APP_CRM = "https://app.bitzy.com.br/configuracoes"
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -72,7 +74,17 @@ export function Header() {
             </Link>
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="rounded-full hover:scale-105 transition-all duration-300"
+            >
+              <Link href={URL_APP_CRM} target="_blank" rel="noreferrer">
+                CRM
+              </Link>
+            </Button>
             <Button
               size="lg"
               className="rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
@@ -109,7 +121,12 @@ export function Header() {
             >
               CRM para Pet Shops
             </Link>
-            <Button size="lg" className="rounded-full w-full mt-2">
+            <Button asChild size="lg" variant="outline" className="rounded-full w-full">
+              <Link href={URL_APP_CRM} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)}>
+                CRM
+              </Link>
+            </Button>
+            <Button size="lg" className="rounded-full w-full">
               Baixar Agora
             </Button>
           </nav>
