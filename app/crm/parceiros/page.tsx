@@ -29,7 +29,7 @@ export default function CrmParceirosPage() {
       <CrmComoFunciona />
       <CrmAppTeaser />
       <CrmDiferencial />
-      <CrmPreco slug="bitzy-parceiros" precoOriginal="49,90" publicoAlvo="fornecedores e parceiros" />
+      <CrmPreco slug="bitzy-parceiros" precoOriginal="59,90" publicoAlvo="fornecedores e parceiros" />
       <FAQSection defaultTab="pet-shops" />
       <CrmCtaFinal slug="bitzy-parceiros" />
       <Footer />
