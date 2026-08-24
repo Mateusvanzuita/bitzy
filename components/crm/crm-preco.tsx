@@ -58,7 +58,7 @@ export function CrmPreco({ slug = "bitzy", precoOriginal, publicoAlvo }: CrmPrec
               </li>
             ))}
           </ul>
-          <CrmCheckoutDialog>
+          <CrmCheckoutDialog slug={slug}>
             <Button size="lg" className="w-full rounded-full text-lg py-7 bg-green-600 hover:bg-green-700 text-white">
               Começar agora
             </Button>
