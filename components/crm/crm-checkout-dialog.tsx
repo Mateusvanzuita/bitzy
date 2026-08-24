@@ -106,6 +106,10 @@ export function CrmCheckoutDialog({ children, slug = "bitzy" }: CrmCheckoutDialo
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
             />
+            <p className="text-xs text-muted-foreground mt-1">
+              <strong>Importante:</strong> este e-mail e esta senha serão utilizados
+              para acessar o Bitzy CRM.
+            </p>
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="cpfCnpj">CPF ou CNPJ</Label>
