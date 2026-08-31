@@ -83,14 +83,23 @@ export async function POST(req: NextRequest) {
 
     const resend = new Resend(process.env.RESEND_API_KEY)
 
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "Diagnóstico Bitzy <noreply@bitzy.pet>",
       to: ["contato@bitzy.com.br"],
       subject: `${isCompleto ? "🐾 Lead Diagnóstico" : "⚠️ Lead parcial (abandonou)"} - ${nomePetshop} [${SCORE_LABEL[score] ?? score}]`,
       html: emailHtml,
     })
 
-    return NextResponse.json({ success: true })
+    if (error) {
+      // O SDK do Resend não lança exceção quando o envio é recusado
+      // (domínio não verificado, remetente inválido, etc.) — só retorna
+      // esse campo. Sem essa checagem, a rota respondia sucesso mesmo
+      // quando o e-mail nunca saía.
+      console.error("Resend recusou o envio:", error)
+      return NextResponse.json({ error: "Falha ao enviar e-mail." }, { status: 502 })
+    }
+
+    return NextResponse.json({ success: true, id: data?.id })
   } catch (err) {
     console.error("Erro ao enviar lead do diagnóstico:", err)
     return NextResponse.json({ error: "Erro interno ao processar diagnóstico." }, { status: 500 })
