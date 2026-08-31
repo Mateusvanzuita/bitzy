@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
 
     await resend.emails.send({
       from: "Diagnóstico Bitzy <noreply@bitzy.pet>",
-      to: ["catarinody@gmail.com", "mateusvanzuitaed@gmail.com"],
+      to: ["contato@bitzy.com.br"],
       subject: `${isCompleto ? "🐾 Lead Diagnóstico" : "⚠️ Lead parcial (abandonou)"} - ${nomePetshop} [${SCORE_LABEL[score] ?? score}]`,
       html: emailHtml,
     })
