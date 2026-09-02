@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 import { linkWhatsapp } from "@/lib/whatsapp"
+import { trackEvento } from "@/lib/analytics"
 import {
   PERGUNTAS,
   obterEtapas,
@@ -116,9 +117,17 @@ export function DiagnosticoApp() {
   }
 
   function avancarEtapa() {
+    const etapaAtual = etapas[etapaIndex]
+    trackEvento("diagnostico_pergunta", {
+      etapa: etapaAtual,
+      indice: etapaIndex + 1,
+      total: etapas.length,
+    })
+
     if (etapaIndex < etapas.length - 1) {
       setEtapaIndex((i) => i + 1)
     } else {
+      trackEvento("diagnostico_resultado", { estimativa_mensal: estimativa.mensal })
       setTela("result")
     }
   }
@@ -155,8 +164,12 @@ export function DiagnosticoApp() {
     }
   }
 
+  // IMPORTANTE: diferente de enviarLeadParcial, aqui deixamos o erro
+  // propagar (não engolimos com try/catch) para que handleLeadFormSubmit
+  // saiba que falhou e decida o que fazer — mas o usuário nunca fica
+  // travado por causa disso (ver handleLeadFormSubmit abaixo).
   async function enviarLeadCompleto(draft: LeadDraft) {
-    await fetch("/api/diagnostico", {
+    const res = await fetch("/api/diagnostico", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -173,6 +186,10 @@ export function DiagnosticoApp() {
         respostas,
       }),
     })
+
+    if (!res.ok) {
+      throw new Error(`Falha ao enviar lead completo: HTTP ${res.status}`)
+    }
   }
 
   async function handlePrecaptureSubmit(draft: LeadDraft) {
@@ -185,6 +202,7 @@ export function DiagnosticoApp() {
     setEnviando(true)
     setLeadDraft(draft)
     await enviarLeadParcial(draft)
+    trackEvento("diagnostico_lead_parcial")
     setEnviando(false)
     setTela("quiz")
     setEtapaIndex(0)
@@ -199,12 +217,30 @@ export function DiagnosticoApp() {
     setWhatsError(false)
     setEnviando(true)
     setLeadDraft(draft)
-    await enviarLeadCompleto(draft)
+
+    // FIX: antes, se este fetch falhasse (timeout, API fora do ar, internet
+    // instável no mobile), a exceção interrompia a função aqui e o usuário
+    // ficava com o botão travado em "Enviando…" para sempre — nunca via a
+    // tela de agradecimento nem o link do WhatsApp, mesmo já tendo
+    // preenchido tudo. Agora o pior cenário é só não termos o registro
+    // salvo no backend; o lead nunca é perdido do lado do usuário.
+    try {
+      await enviarLeadCompleto(draft)
+    } catch (err) {
+      console.error("Falha ao salvar lead completo:", err)
+    }
+
     try {
       sessionStorage.setItem(SESSION_KEY, JSON.stringify({ tela: "thanks" }))
     } catch {}
+
     setEnviando(false)
     setTela("thanks")
+    trackEvento("diagnostico_lead_completo", {
+      nome_petshop: draft.nomePetshop,
+      cidade_estado: draft.cidadeEstado,
+      estimativa_mensal: estimativa.mensal,
+    })
   }
 
   return (
@@ -223,7 +259,14 @@ export function DiagnosticoApp() {
         </div>
       </header>
 
-      {tela === "hero" && <TelaHero onIniciar={() => irPara("precapture")} />}
+      {tela === "hero" && (
+        <TelaHero
+          onIniciar={() => {
+            trackEvento("diagnostico_inicio")
+            irPara("precapture")
+          }}
+        />
+      )}
 
       {tela === "precapture" && (
         <TelaPrecaptura
@@ -250,7 +293,10 @@ export function DiagnosticoApp() {
         <TelaResultado
           respostas={respostas}
           estimativa={estimativa}
-          onQuerofalar={() => irPara("leadform")}
+          onQuerofalar={() => {
+            trackEvento("diagnostico_quer_falar")
+            irPara("leadform")
+          }}
         />
       )}
 
@@ -467,6 +513,7 @@ function TelaQuiz({
                 <button
                   key={opt.value}
                   type="button"
+                  aria-pressed={selecionado}
                   onClick={() => {
                     if (isMulti) {
                       const arr = Array.isArray(atual) ? [...atual] : []
@@ -488,7 +535,9 @@ function TelaQuiz({
                       : "border-border hover:border-primary/50 hover:bg-muted"
                   }`}
                 >
-                  <span className="text-lg shrink-0">{opt.emoji}</span>
+                  <span className="text-lg shrink-0" aria-hidden="true">
+                    {opt.emoji}
+                  </span>
                   <span>{opt.label}</span>
                   {selecionado && <Check className="w-4 h-4 ml-auto shrink-0" />}
                 </button>
@@ -866,6 +915,7 @@ function TelaAgradecimento({ draft }: { draft: LeadDraft }) {
           href={linkWhatsapp(mensagem)}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackEvento("diagnostico_whatsapp_click")}
           className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white rounded-full px-8 py-4 font-bold shadow-lg transition-colors"
         >
           <MessageCircle className="w-5 h-5" /> Continuar no WhatsApp

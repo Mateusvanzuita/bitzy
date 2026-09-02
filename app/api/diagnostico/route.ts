@@ -15,6 +15,25 @@ const SCORE_COLOR: Record<string, string> = {
   frio: "#6b7280",
 }
 
+// SEGURANÇA: esta rota recebe POST de um formulário público e os valores
+// (nome, nomePetshop, whatsapp, email, cidadeEstado, respostas) eram
+// inseridos direto na string HTML do e-mail sem escapar. Qualquer pessoa
+// pode chamar essa rota diretamente (não só pelo formulário do site) e
+// mandar HTML/script no campo "nome", por exemplo — o que pode ser
+// renderizado no seu cliente de e-mail. Escapamos tudo que vem do usuário
+// antes de montar o HTML.
+function escapeHtml(valor: unknown): string {
+  if (valor === null || valor === undefined) return ""
+  return String(valor)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+}
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -36,20 +55,34 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Campos obrigatórios faltando." }, { status: 400 })
     }
 
-    if (tipo === "completo" && (!email || !cidadeEstado)) {
+    const isCompleto = tipo === "completo"
+
+    if (isCompleto && (!email || !cidadeEstado)) {
       return NextResponse.json({ error: "Campos obrigatórios faltando." }, { status: 400 })
     }
 
-    const isCompleto = tipo === "completo"
-    const score = scoreInterno || "frio"
+    // Validação server-side: o front-end já valida, mas como a rota é
+    // pública, alguém pode postar direto pulando o formulário.
+    const whatsappDigits = String(whatsapp).replace(/\D/g, "")
+    if (whatsappDigits.length < 10) {
+      return NextResponse.json({ error: "WhatsApp inválido." }, { status: 400 })
+    }
+
+    if (isCompleto && !EMAIL_REGEX.test(String(email))) {
+      return NextResponse.json({ error: "E-mail inválido." }, { status: 400 })
+    }
+
+    const score = scoreInterno && SCORE_LABEL[scoreInterno] ? scoreInterno : "frio"
 
     const row = (icon: string, label: string, value?: string) =>
       value
         ? `<tr style="border-bottom:1px solid #f3f4f6;">
-             <td style="padding:12px 0;color:#6b7280;font-size:14px;width:40%;">${icon} ${label}</td>
-             <td style="padding:12px 0;color:#1a1a1a;font-weight:600;">${value}</td>
+             <td style="padding:12px 0;color:#6b7280;font-size:14px;width:40%;">${icon} ${escapeHtml(label)}</td>
+             <td style="padding:12px 0;color:#1a1a1a;font-weight:600;">${escapeHtml(value)}</td>
            </tr>`
         : ""
+
+    const respostasFormatadas = respostas ? escapeHtml(JSON.stringify(respostas)) : undefined
 
     const emailHtml = `
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f9fafb;padding:32px;border-radius:16px;">
@@ -59,20 +92,20 @@ export async function POST(req: NextRequest) {
             ${isCompleto ? "Novo Lead Completo" : "Lead Parcial (abandonou o diagnóstico)"} — Diagnóstico Bitzy
           </h1>
           <p style="color:#6b7280;margin:0;">
-            Score: <strong style="color:${SCORE_COLOR[score]};">${SCORE_LABEL[score] ?? score}</strong>
+            Score: <strong style="color:${SCORE_COLOR[score]};">${SCORE_LABEL[score] ?? escapeHtml(score)}</strong>
           </p>
         </div>
         <div style="background:white;border-radius:12px;padding:24px;border:1px solid #e5e7eb;">
           <table style="width:100%;border-collapse:collapse;">
-            ${row("👤", "Nome", nome)}
-            ${row("🏪", "Pet Shop", nomePetshop)}
-            ${row("📱", "WhatsApp", whatsapp)}
-            ${row("📧", "E-mail", email)}
-            ${row("🌆", "Cidade / Estado", cidadeEstado)}
+            ${row("👤", "Nome", escapeHtml(nome))}
+            ${row("🏪", "Pet Shop", escapeHtml(nomePetshop))}
+            ${row("📱", "WhatsApp", escapeHtml(whatsapp))}
+            ${row("📧", "E-mail", email ? escapeHtml(email) : undefined)}
+            ${row("🌆", "Cidade / Estado", cidadeEstado ? escapeHtml(cidadeEstado) : undefined)}
             ${row("💰", "Potencial estimado", estimativaMensal ? `R$ ${Number(estimativaMensal).toLocaleString("pt-BR")}/mês` : undefined)}
             ${row("📅", "Potencial anual", estimativaAnual ? `R$ ${Number(estimativaAnual).toLocaleString("pt-BR")}/ano` : undefined)}
-            ${row("🆔", "ID do lead", leadId)}
-            ${row("📋", "Respostas do quiz", respostas ? JSON.stringify(respostas) : undefined)}
+            ${row("🆔", "ID do lead", leadId ? escapeHtml(leadId) : undefined)}
+            ${row("📋", "Respostas do quiz", respostasFormatadas)}
           </table>
         </div>
         <p style="text-align:center;color:#9ca3af;font-size:12px;margin-top:24px;">

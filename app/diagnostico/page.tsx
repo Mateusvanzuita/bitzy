@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   description:
     "Descubra em menos de 2 minutos quanto seu pet shop pode faturar a mais organizando clientes, agenda e vendas com o Bitzy.",
   robots: { index: false, follow: false },
+  openGraph: {
+    title: "Diagnóstico gratuito | Bitzy",
+    description:
+      "Descubra em menos de 2 minutos quanto seu pet shop pode faturar a mais organizando clientes, agenda e vendas com o Bitzy.",
+    type: "website",
+    images: [{ url: "/og-diagnostico.jpg", width: 1200, height: 630 }], // TODO: criar imagem
+  },
 }
 
 export default function DiagnosticoPage() {
