@@ -72,6 +72,12 @@ export function Header() {
             >
               CRM para Pet Shops
             </Link>
+            <Link
+              href="/blog"
+              className="text-foreground hover:text-primary transition-all duration-300 font-medium hover:scale-105"
+            >
+              Blog
+            </Link>
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
@@ -120,6 +126,13 @@ export function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               CRM para Pet Shops
+            </Link>
+            <Link
+              href="/blog"
+              className="text-foreground hover:text-primary transition-colors font-medium py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
             </Link>
             <Button asChild size="lg" variant="outline" className="rounded-full w-full">
               <Link href={URL_APP_CRM} target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)}>
