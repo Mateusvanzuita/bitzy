@@ -22,7 +22,7 @@ export default function CrmPage() {
       <CrmComoFunciona />
       <CrmAppTeaser />
       <CrmDiferencial />
-      <CrmPreco slug="bitzy" precoOriginal="59,90" publicoAlvo="novos clientes" />
+      <CrmPreco slug="bitzy" precoOriginal="159,90" publicoAlvo="novos clientes" />
       <FAQSection defaultTab="pet-shops" />
       <CrmCtaFinal slug="bitzy" />
       <Footer />
