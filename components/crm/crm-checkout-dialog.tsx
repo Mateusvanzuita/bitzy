@@ -13,7 +13,7 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { buscarPlanoPorSlugCRM, registrarCheckoutCRM, type PlanoCRM } from "@/lib/crm-api"
+import { buscarPlanoPorSlugCRM, registrarCheckoutCRM, type PlanoCRM, type MetodoPagamentoCRM } from "@/lib/crm-api"
 
 interface CrmCheckoutDialogProps {
   children: ReactNode
@@ -35,6 +35,7 @@ export function CrmCheckoutDialog({ children, slug = "bitzy" }: CrmCheckoutDialo
   const [cpfCnpj, setCpfCnpj] = useState("")
   const [cidade, setCidade] = useState("")
   const [estado, setEstado] = useState("")
+  const [metodoPagamento, setMetodoPagamento] = useState<MetodoPagamentoCRM>("CREDIT_CARD")
 
   useEffect(() => {
     if (aberto && !plano) {
@@ -61,7 +62,7 @@ export function CrmCheckoutDialog({ children, slug = "bitzy" }: CrmCheckoutDialo
         cidade: cidade || undefined,
         estado: estado || undefined,
         planoId: plano.id,
-        metodoPagamento: "CREDIT_CARD",
+        metodoPagamento,
       })
       window.location.href = resultado.checkoutUrl
     } catch (err) {
@@ -132,6 +133,34 @@ export function CrmCheckoutDialog({ children, slug = "bitzy" }: CrmCheckoutDialo
             </div>
           </div>
 
+          <div className="space-y-1.5">
+            <Label>Forma de pagamento</Label>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setMetodoPagamento("CREDIT_CARD")}
+                className={`rounded-lg border py-2 text-sm font-medium transition-colors ${
+                  metodoPagamento === "CREDIT_CARD"
+                    ? "border-green-600 bg-green-50 text-green-700"
+                    : "border-input text-muted-foreground"
+                }`}
+              >
+                Cartão de crédito
+              </button>
+              <button
+                type="button"
+                onClick={() => setMetodoPagamento("PIX")}
+                className={`rounded-lg border py-2 text-sm font-medium transition-colors ${
+                  metodoPagamento === "PIX"
+                    ? "border-green-600 bg-green-50 text-green-700"
+                    : "border-input text-muted-foreground"
+                }`}
+              >
+                Pix
+              </button>
+            </div>
+          </div>
+
           {erro && <p className="text-sm text-destructive">{erro}</p>}
 
           <DialogFooter>
@@ -144,7 +173,9 @@ export function CrmCheckoutDialog({ children, slug = "bitzy" }: CrmCheckoutDialo
             </Button>
           </DialogFooter>
           <p className="text-center text-xs text-muted-foreground">
-            Pagamento via cartão de crédito. Sua conta é criada automaticamente assim que o pagamento for confirmado — você recebe o acesso por e-mail.
+            {metodoPagamento === "PIX"
+              ? "Você será redirecionado para pagar com Pix. Sua conta é criada automaticamente assim que o pagamento for confirmado — você recebe o acesso por e-mail."
+              : "Pagamento via cartão de crédito. Sua conta é criada automaticamente assim que o pagamento for confirmado — você recebe o acesso por e-mail."}
           </p>
         </form>
       </DialogContent>
