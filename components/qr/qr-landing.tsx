@@ -70,7 +70,7 @@ export function QrLanding({ slug }: { slug: string }) {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/30 to-accent/30 rounded-3xl blur-2xl" />
           <video
             className="relative w-full rounded-3xl border-2 border-border/50 shadow-2xl bg-card"
-            src="/videos/bitzy-app.mp4"
+            src="/videos/bitzy-app-parceiros.mp4"
             poster="/inicio.png"
             controls
             playsInline
