@@ -26,6 +26,9 @@ export const SLUGS_QR = [
   "mrpet1122",
   "parana1122",
   "cardeal1122",
+
+  // QR code genérico, não associado a um pet shop específico.
+  "petshops10",
 ] as const
 
 export type SlugQr = (typeof SLUGS_QR)[number]
