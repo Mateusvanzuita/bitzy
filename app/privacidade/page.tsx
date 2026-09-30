@@ -59,7 +59,7 @@ const sections = [
         <ul className="space-y-3">
           {[
             "Personalizar as recomendações de cuidado e prevenção para cada pet.",
-            "Aprimorar os modelos de inteligência artificial e a experiência no aplicativo.",
+            "Processar solicitações realizadas nos recursos de inteligência artificial e personalizar a experiência no aplicativo.",
             "Garantir suporte técnico e comunicação com o usuário.",
             "Cumprir obrigações legais e de segurança digital.",
           ].map((item, i) => (
@@ -116,6 +116,50 @@ const sections = [
             </li>
           ))}
         </ul>
+        <div className="bg-muted/40 rounded-2xl p-5 space-y-3 mt-5">
+  <p className="font-semibold text-foreground">
+    Uso de Inteligência Artificial — OpenAI
+  </p>
+
+  <p className="text-muted-foreground leading-relaxed">
+    Alguns recursos do Bitzy utilizam serviços de inteligência artificial
+    fornecidos pela <strong>OpenAI</strong>, incluindo o SOS Bitzy, análises,
+    dicas personalizadas e transcrição de mensagens de voz.
+  </p>
+
+  <p className="text-muted-foreground leading-relaxed">
+    Quando o usuário utiliza esses recursos e fornece sua autorização, o Bitzy
+    pode enviar à OpenAI somente as informações necessárias para processar a
+    solicitação, que podem incluir:
+  </p>
+
+  <ul className="space-y-2">
+    {[
+      "Informações sobre o pet necessárias para contextualizar a solicitação, como nome, espécie, raça, idade, peso e outras características cadastradas, conforme o recurso utilizado.",
+      "Mensagens enviadas pelo usuário e, quando necessário para manter o contexto do atendimento, o histórico da conversa.",
+      "Respostas fornecidas pelo usuário em análises, questionários e recursos de dicas personalizadas.",
+      "Arquivos de áudio enviados pelo usuário quando o recurso de mensagem de voz for utilizado, exclusivamente para realizar a transcrição.",
+    ].map((item, i) => (
+      <li key={i} className="flex items-start gap-3 text-muted-foreground">
+        <span className="mt-2 w-2 h-2 rounded-full bg-primary flex-shrink-0" />
+        <span className="leading-relaxed">{item}</span>
+      </li>
+    ))}
+  </ul>
+
+  <p className="text-muted-foreground leading-relaxed">
+    Essas informações são enviadas à OpenAI com a finalidade de processar a
+    solicitação do usuário e gerar a resposta, análise, recomendação ou
+    transcrição exibida no Bitzy.
+  </p>
+
+  <p className="text-muted-foreground leading-relaxed">
+    <strong>O envio dessas informações à OpenAI somente ocorre após a autorização
+    do usuário.</strong> Caso o usuário não autorize, os recursos que dependem
+    desses serviços de inteligência artificial não estarão disponíveis, sem
+    impedir o uso das demais funcionalidades do Bitzy.
+  </p>
+</div>
       </div>
     ),
   },
@@ -253,7 +297,7 @@ export default function PrivacidadePage() {
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-4">Política de Privacidade</h1>
           <p className="text-muted-foreground text-lg">
-            Última atualização: <strong>16 de outubro de 2025</strong>
+            Última atualização: <strong>30 de setembro de 2026</strong>
           </p>
           <p className="mt-4 text-muted-foreground leading-relaxed text-lg max-w-2xl">
             Bem-vindo(a) ao <strong>Bitzy</strong>. A privacidade e a segurança dos seus dados são prioridades para nós.
